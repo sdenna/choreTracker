@@ -8,48 +8,47 @@
 
 import React, { Component } from 'react';
 import { AppRegistry, Text, View, StyleSheet, Image, TextInput, ImageBackground, TouchableHighlight, Alert, Dimensions, ScrollView } from 'react-native';
-import Constants from 'expo-constants';
+
 
 let deviceHeight = Dimensions.get('window').height;
 let deviceWidth = Dimensions.get('window').width;
 
 export default class App extends Component {
   state = {
-      pageDisplayStatus: ['block', 'none', 'none'],
-      pageDisplayTitles: ["Names", "Earnings", "Total $"],
-      
-      choreValue1: 4,
-      choreValue2: 1,
-      
-      choreName1: 'Mopping',
-      choreName2: 'Dishes',
-      
-      childArray:[
-          {
-              name: "Child 1",
-              earnings: 0,
-              sumEarnings: 0,
-          },
-          {
-              name: 'Child 2',
-              earnings: 0,
-              sumEarnings: 0,
-          },
-          {
-              name: 'Child 3',
-              earnings: 0,
-              sumEarnings: 0,
-          },
-         
-      ]    
+    pageDisplayStatus: ['block', 'none', 'none'],
+    pageDisplayTitles: ["Names", "Earnings", "Total $"],
 
+    choreValue1: 4,
+    choreValue2: 1,
+    
+    choreName1: 'Mopping',
+    choreName2: 'Dishes',
+    
+    childArray:[
+        {
+            name: "Child 1",
+            earnings: 0,
+            sumEarnings: 0,
+        },
+        {
+            name: 'Child 2',
+            earnings: 0,
+            sumEarnings: 0,
+        },
+        {
+            name: 'Child 3',
+            earnings: 0,
+            sumEarnings: 0,
+        },
+       
+    ]    
   }
-  
-  // function to change pages when the buttons are clicked
-  // there are two arrays, one that has the block/none status
-  // and one that has the title for the button to be displayed
-  // this function gets the index that was clicked on
-  handlePagePress = (index) => {
+
+   // function to change pages when the buttons are clicked
+    // there are two arrays, one that has the block/none status
+    // and one that has the title for the button to be displayed
+    // this function gets the index that was clicked on
+    handlePagePress = (index) => {
       let newArray = [...this.state.pageDisplayStatus];
       for (let i = 0; i < newArray.length; i++) {
         newArray[i] = 'none';
@@ -57,231 +56,118 @@ export default class App extends Component {
       newArray[index] = 'block';
       this.setState({pageDisplayStatus: newArray});
   };
-  
- 
+
   // One function that will update the allowance 
-  // First parameter is the amount to update
-  // Second parameter is which kid to be updated.
-  
-  addMoney = (amt, kid) => {
-    this.state.childArray[kid].earnings = 
-        this.state.childArray[kid].earnings + amt;
-    this.setState({});
-  };
-  
-// Link I referenced to update the array via TextInput
+    // First parameter is the amount to update
+    // Second parameter is which kid to be updated.
+    
+    addMoney = (amt, kid) => {
+	    this.state.childArray[kid].earnings = 
+	        this.state.childArray[kid].earnings + amt;
+	    this.setState({});
+    };
+
+    // Link I referenced to update the array via TextInput
 // https://stackoverflow.com/questions/45262086/update-an-element-in-an-array-object-at-state-by-using-textinput-react-native
 
-  updateName = (index, newName) => {
-     let newArray = [...this.state.childArray];
-     newArray[index] = {...newArray[index], name: newName}
-     this.setState({childArray: newArray});
+updateName = (index, newName) => {
+  let newArray = [...this.state.childArray];
+  newArray[index] = {...newArray[index], name: newName}
+  this.setState({childArray: newArray});
 };
 
-  // function to "end" the week - this determines cumulative totals
-  // for each week, resets the current week totals to 0
-  // finds out how many weeks have passed to find avg allowance per week
-  
-  endWeekTotals = () => {
-      var updatedChildArray = []; 
-      let oldChildArray = [...this.state.childArray];
+// function to "end" the week - this determines cumulative totals
+// for each week, resets the current week totals to 0
+// finds out how many weeks have passed to find avg allowance per week
 
-      for(let i = 0; i < oldChildArray.length; i++){
-          var newObj = { 
-              name: oldChildArray[i].name,
-              earnings: 0,
-              sumEarnings: oldChildArray[i].sumEarnings + oldChildArray[i].earnings,
-              }
-      updatedChildArray.push(newObj);
-      }
-    this.setState({childArray: updatedChildArray});
-  }        
+endWeekTotals = () => {
+   var updatedChildArray = []; 
+   let oldChildArray = [...this.state.childArray];
 
-  // This function generates all the XML for the title so that it makes the body
-  // code look cleaner.
-  titleContainer = () => {
-    return   (
-        <View style={styles.titleContainer}>
-          <Image style={styles.imageSwirlsLeft}
-              source={{ uri: 'https://codehs.com/uploads/67f8b9c5f4848df56b7b62a18753eddc' }}
-          />
-          <View style={styles.titleTextContainer}>
-              <Text style={styles.titleText}>
-                  Allowance
-              </Text>
-                      
-              <Text style={styles.titleText}>
-                  Challenge
-              </Text>
-          </View>  
-          <Image style={styles.imageSwirlsRight}
-              source={{ uri: 'https://codehs.com/uploads/6de6a3af651beeb4906f441012ec1b13' }}
-          />
-      </View>
-    );
-  };
+   for(let i = 0; i < oldChildArray.length; i++){
+       var newObj = { 
+           name: oldChildArray[i].name,
+           earnings: 0,
+           sumEarnings: oldChildArray[i].sumEarnings + oldChildArray[i].earnings,
+           }
+   updatedChildArray.push(newObj);
+   }
+ this.setState({childArray: updatedChildArray});
+}        
 
-  middleNamesContainer = () => {
-      return (
-          <View style={styles.nameInputContainer}>
-                  {this.state.childArray.map((child, index) => (
-                  <TextInput style = {styles.enterNamesInputBox}
-                     onChangeText= {(newName) => this.updateName(index, newName)}
-                     value={child.name}
-                  />
-             ))}
-          </View>        
-      );
-  };
+// This function generates all the XML for the title so that it makes the body
+// code look cleaner.
+titleContainer = () => {
+ return   (
+     <View style={styles.titleContainer}>
+       <Image style={styles.imageSwirlsLeft}
+           source={{ uri: 'https://codehs.com/uploads/67f8b9c5f4848df56b7b62a18753eddc' }}
+       />
+       <View style={styles.titleTextContainer}>
+           <Text style={styles.titleText}>
+               Allowance
+           </Text>
+                   
+           <Text style={styles.titleText}>
+               Challenge
+           </Text>
+       </View>  
+       <Image style={styles.imageSwirlsRight}
+           source={{ uri: 'https://codehs.com/uploads/6de6a3af651beeb4906f441012ec1b13' }}
+       />
+   </View>
+ );
+};
+
+middleNamesContainer = () => {
+  return (
+      <View style={styles.nameInputContainer}>
+              {this.state.childArray.map((child, index) => (
+              <TextInput style = {styles.enterNamesInputBox}
+                 onChangeText= {(newName) => this.updateName(index, newName)}
+                 value={child.name}
+              />
+         ))}
+      </View>        
+  );
+};
+
 
   render() {
     return (
         <ScrollView style={styles.container}>
         
-            <ImageBackground 
-                style={styles.background}
-                source={{ uri: 'https://codehs.com/uploads/2762c4f195eb217d019ed1518cce3f8b' }}
-            >
-            
+           
 {/* Beginning of titleContainer.  This function generates all XML for title */}    
         <View style={styles.titleContainer}> 
-            {this.titleContainer()}
+            <Text>Hi</Text>
         </View>
         
 {/* Beginning of middleContainer */}
         <View style = {styles.middleContainer}>    
-        
-        {/* Middle page for when Names is clicked */}    
-        <View style = {{ display: this.state.pageDisplayStatus[0] }}>
-            {this.middleNamesContainer()}
-            <Image
-                source={{ uri: 'https://codehs.com/uploads/54be58044a8de1bee2dc413c441a9bce' }}
-                style={{ height: 3*deviceHeight/10, width: deviceWidth }}
-            />
-        </View>
-    
-    
-        
-        {/* Middle page for when Earnings is clicked */}   
-        
-        <View style = {{display: this.state.pageDisplayStatus[1]}}>
-        
-        {/* Button container and mapping for chore 1 */}    
-            <View style={styles.buttonContainer}>
-                {this.state.childArray.map((child, index) => (
-            
-                <TouchableHighlight
-                    underlayColor = "transparent"
-                    onPress={() => {this.addMoney(this.state.choreValue1, index)}}
-                >
-                    <View style={styles.buttonStyle}>
-                        <Text style={styles.buttonText}>
-                        {child.name}
-                        </Text>
-                        <Text style={styles.buttonText}>
-                        {this.state.choreName1}
-                        </Text>
-                        <Text style={styles.buttonText}>
-                        ${this.state.choreValue1}
-                        </Text>
-                    </View>
-                </TouchableHighlight>
-                ))}
-                
-        </View> 
-        
+        <Text>Middle</Text>
+
+      
+        </View>        
     {/* Button container and mapping for chore 2 */}    
         
         <View style={styles.buttonContainer}>
-          {this.state.childArray.map((child, index) => (
-                <TouchableHighlight
-                    underlayColor = "transparent"
-                    onPress={() => {this.addMoney(this.state.choreValue2, index)}}
-                >
-                    <View style={styles.buttonStyle}>
-                        <Text style={styles.buttonText}>
-                        {child.name}
-                        </Text>
-                        <Text style={styles.buttonText}>
-                        {this.state.choreName2}
-                        </Text>
-                        <Text style={styles.buttonText}>
-                        ${this.state.choreValue2}
-                        </Text>
-                    </View>
-                </TouchableHighlight>
-                ))}
-          
-            </View>
+          <Text>Button</Text>
+        </View>
        
        
        {/* Section where names and current earnings are displayed */}
        
-            {this.state.childArray.map((child, index) => (
-            <View style={styles.earningsContainer}>
-                <TextInput style = {styles.earningsTextInputBox}
-                   onChangeText= {(newName) => this.updateName(index, newName)}
-                   value={child.name}
-                />
-                
-                <Text style={styles.earningsText}>
-                $ {child.earnings}
-                </Text>
-            </View>
-           ))}
-            
-           
-            
-            {/* button to finish the week */}
-            <View style = {styles.centerItems}>
-             <TouchableHighlight 
-            underlayColor = "transparent"
-            onPress = {this.endWeekTotals} >
-            <View style={[styles.navButtonStyle, {width: deviceWidth/2}]}>
-                <Text style = {styles.navButtonText}>
-                    Calculate Week Totals
-                </Text>
-            </View>
-            </TouchableHighlight>
-        </View>
-    </View> {/* End of Earning section */}
-            
-        
-    
-    {/* Middle page for when Stats is clicked */}
-        <View style = {{ display: this.state.pageDisplayStatus[2] }}>
-            {this.state.childArray.map((child) => (    
-                <View>
-                    <Text style = {styles.statsPageText}>
-                        {child.name}: ${child.sumEarnings}
-                    </Text>
-                </View>
-            ))} 
-        
-        </View>
-    </View>     {/* End of middleContainer */}
+          
         
         
 {/* Begins bottom section with the nav buttons */}        
         <View style = {styles.bottomContainer}>
             <View style = {styles.navBarContainer}>
-            {this.state.pageDisplayTitles.map((title, index) => (
-            <TouchableHighlight 
-            underlayColor = "transparent"
-            onPress = {() => {this.handlePagePress(index)}} >
-                <View style = {styles.navButtonStyle}>
-                    <Text style = {styles.navButtonText}>
-                        {title}
-                    </Text>
-                </View>
-                </TouchableHighlight>
-              ))}  
-               
-            
+           
             </View>
         </View>
-        
-        </ImageBackground>
+      
     </ScrollView>    
         
     );
@@ -293,7 +179,7 @@ const styles = StyleSheet.create({
   container: {
       height: deviceHeight,
       width: deviceWidth,
-      backgroundColor: 'black',
+      backgroundColor: 'yellow',
      
   },
   centerItems: {
@@ -310,14 +196,18 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       marginTop: deviceHeight/40,
+      backgroundColor: 'yellow'
   },
   middleContainer:{
       flex: 3,
       justifyContent: 'flex-start',
+      backgroundColor: 'blue',
     
   },
   bottomContainer: {
-     flex: 1
+     flex: 1,
+     backgroundColor: 'red',
+
   },
   imageSwirlsLeft: {
       width: deviceWidth/3,
@@ -337,7 +227,6 @@ const styles = StyleSheet.create({
   titleText: {
       color: 'limegreen',
       fontSize: deviceHeight/28,
-      fontStyle: 'bold',
       fontFamily: 'Futura',
       textAlign: 'center',
       width: deviceWidth/3,
@@ -345,6 +234,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
       flexDirection: 'row',
       justifyContent: 'center',
+      backgroundColor: 'green',
   },
   buttonStyle: {
       alignItems: 'center',
