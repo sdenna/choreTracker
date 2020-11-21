@@ -1,14 +1,17 @@
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
+ * Shannon Denna
+ * Created for assignments with CodeHS for the ScoreKeeper assignment series
  *
  * @format
  * @flow strict-local
  */
 
 import React, { Component } from 'react';
-import { AppRegistry, Text, View, StyleSheet, Image, TextInput, ImageBackground, TouchableHighlight, Alert, Dimensions, ScrollView } from 'react-native';
-
+import { AppRegistry, Text, View, StyleSheet, Image, TextInput, 
+         ImageBackground, TouchableHighlight, Alert, Dimensions, 
+         ScrollView } from 'react-native'
 
 let deviceHeight = Dimensions.get('window').height;
 let deviceWidth = Dimensions.get('window').width;
@@ -40,7 +43,6 @@ export default class App extends Component {
             earnings: 0,
             sumEarnings: 0,
         },
-       
     ]    
   }
 
@@ -132,7 +134,6 @@ middleNamesContainer = () => {
   );
 };
 
-
   render() {
     return (
       <ScrollView style={styles.container}>
@@ -163,7 +164,6 @@ middleNamesContainer = () => {
                 {/* Button container and mapping for chore 1 */}    
                     <View style={styles.buttonContainer}>
                         {this.state.childArray.map((child, index) => (
-                    
                         <TouchableHighlight
                             underlayColor = "transparent"
                             onPress={() => {this.addMoney(this.state.choreValue1, index)}}
@@ -181,7 +181,6 @@ middleNamesContainer = () => {
                             </View>
                         </TouchableHighlight>
                         ))}
-                        
                     </View> 
 
         {/* Button container and mapping for chore 2 */}    
@@ -247,10 +246,10 @@ middleNamesContainer = () => {
                 ))} 
             
             </View>
-            </View>
+          </View>
 
  {/* Middle page for when Stats is clicked */}
- <View style = {{ display: this.state.pageDisplayStatus[2] }}>
+            <View style = {{ display: this.state.pageDisplayStatus[2] }}>
                 {this.state.childArray.map((child) => (    
                     <View>
                         <Text style = {styles.statsPageText}>
@@ -265,34 +264,27 @@ middleNamesContainer = () => {
       
 
 {/* Begins bottom section with the nav buttons */}        
-<View style = {styles.bottomContainer}>
+    <View style = {styles.bottomContainer}>
                 <View style = {styles.navBarContainer}>
                 {this.state.pageDisplayTitles.map((title, index) => (
                 <TouchableHighlight 
-                underlayColor = "transparent"
-                onPress = {() => {this.handlePagePress(index)}} >
+                  underlayColor = "transparent"
+                  onPress = {() => {this.handlePagePress(index)}} >
                     <View style = {styles.navButtonStyle}>
                         <Text style = {styles.navButtonText}>
                             {title}
                         </Text>
                     </View>
-                    </TouchableHighlight>
-                  ))}  
-                   
-                
+                </TouchableHighlight>
+                ))}   
                 </View>
-            </View>
-
-    
-   
-
-      
-      </ImageBackground>
-    </ScrollView>    
+      </View>
+    </ImageBackground>
+  </ScrollView>    
         
-    );
+  );
 }
-  }
+}
 
 
 const styles = StyleSheet.create({
@@ -374,15 +366,12 @@ const styles = StyleSheet.create({
   
   nameInputContainer: {
       alignItems: 'center',
-      margin: 10,
-      
+      margin: 10,    
   },
-  
   earningsText: {
       color: 'limegreen',
       fontSize: deviceHeight/40,
-      fontFamily: 'Futura',
-      //marginBottom: 5,    
+      fontFamily: 'Futura', 
       marginLeft: deviceWidth/40,
       width: deviceWidth/5,
   },
@@ -410,7 +399,6 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       marginTop: 30,
-    
   },
   navButtonStyle: {
       alignItems: 'center',
@@ -436,6 +424,4 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       marginBottom: 10,    
   },
-  
-  
 });
