@@ -22,10 +22,10 @@ export default class App extends Component {
     pageDisplayTitles: ["Names", "Earnings", "Total $"],
 
     choreValue1: 4,
-    choreValue2: 1,
+    choreValue2: 2,
     
     choreName1: 'Mopping',
-    choreName2: 'Dishes',
+    choreName2: 'Raking',
     
     childArray:[
         {
